@@ -17,7 +17,7 @@ class Pizza {
         return this.basePrice.add(toppings.calculatePrice());
     }
 
-    String getDescription(){
+    void getDescription(){
 
     }
 }
