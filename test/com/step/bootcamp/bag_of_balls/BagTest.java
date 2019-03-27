@@ -13,6 +13,8 @@ class BagTest {
         bag = new Bag();
         bag.addValidation(new MaxBalls());
         bag.addValidation(new MaxThreeGreen());
+        bag.addValidation(new RedNotMoreThanDoubleOfGreen());
+        bag.addValidation(new YellowLessThanFourtyPercent());
     }
 
     @Test
@@ -45,5 +47,53 @@ class BagTest {
         bag.addBall(Ball.GREEN);
         bag.addBall(Ball.GREEN);
         assertFalse(bag.addBall(Ball.GREEN));
+    }
+
+    @Test
+    void shouldTestADeluxeBagForYellowNotMoreThanFourtyPercent() {
+        Bag deluxeBag = new Bag();
+        deluxeBag.addValidation(new MaximumOfTwentyBalls());
+        deluxeBag.addValidation(new MaxThreeGreen());
+        deluxeBag.addValidation(new RedNotMoreThanDoubleOfGreen());
+        deluxeBag.addValidation(new YellowLessThanFourtyPercent());
+
+        assertFalse(bag.addBall(Ball.YELLOW));
+    }
+
+    @Test
+    void shouldReturnFalseForRedMoreThanGreen() {
+        Bag deluxeBag = new Bag();
+        deluxeBag.addValidation(new MaximumOfTwentyBalls());
+        deluxeBag.addValidation(new MaxThreeGreen());
+        deluxeBag.addValidation(new RedNotMoreThanDoubleOfGreen());
+        deluxeBag.addValidation(new YellowLessThanFourtyPercent());
+
+        assertFalse(bag.addBall(Ball.RED));
+    }
+
+    @Test
+    void shouldTestTheMaximumCapacityOfDeluxeBag() {
+        Bag deluxeBag = new Bag();
+        deluxeBag.addValidation(new MaximumOfTwentyBalls());
+        deluxeBag.addValidation(new MaxThreeGreen());
+        deluxeBag.addValidation(new RedNotMoreThanDoubleOfGreen());
+        deluxeBag.addValidation(new YellowLessThanFourtyPercent());
+        for(int i=0;i<20;i++) {
+            bag.addBall(Ball.BLUE);
+        }
+        assertFalse(bag.addBall(Ball.BLUE));
+    }
+
+    @Test
+    void shouldReturnFalseForMoreThanOneBlack() {
+        Bag deluxeBag = new Bag();
+        deluxeBag.addValidation(new MaximumOfTwentyBalls());
+        deluxeBag.addValidation(new MaxThreeGreen());
+        deluxeBag.addValidation(new RedNotMoreThanDoubleOfGreen());
+        deluxeBag.addValidation(new YellowLessThanFourtyPercent());
+        deluxeBag.addValidation(new BlackNotMoreThanOne());
+        bag.addBall(Ball.BLACK);
+        bag.addBall(Ball.BLACK);
+        assertTrue(bag.addBall(Ball.BLACK));
     }
 }

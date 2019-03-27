@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AttendantTest {
     @Test
     void shouldReturnTheParkingPlaceNumberWhenACarParked() throws ParkingLotFullException {
-        Car car = new Car();
+        Car car = new Car(1);
         ParkingLot parkingLot = new ParkingLot(10);
         Attendant attendant = new Attendant(parkingLot);
         assertEquals(0,attendant.park(car));
@@ -15,7 +15,7 @@ class AttendantTest {
 
     @Test
     void shouldThrowParkingLotFullExceptionIfNoLotToPark() {
-        Car car = new Car();
+        Car car = new Car(1);
         ParkingLot parkingLot = new ParkingLot(0);
         Attendant attendant = new Attendant(parkingLot);
         assertThrows(ParkingLotFullException.class,()->{attendant.park(car);});
@@ -23,7 +23,7 @@ class AttendantTest {
 
     @Test
     void shouldParkTheCarIfAnyOfTheLotIsAvailable() throws ParkingLotFullException {
-        Car car = new Car();
+        Car car = new Car(1);
         ParkingLot parkingLot1 = new ParkingLot(0);
         ParkingLot parkingLot2 = new ParkingLot(1);
         Attendant attendant = new Attendant(parkingLot1);
@@ -35,7 +35,7 @@ class AttendantTest {
 
     @Test
     void shouldThrowParkingLotFullExceptionIfNoneOfTheLotIsAvailableToPark(){
-        Car car = new Car();
+        Car car = new Car(1);
         ParkingLot parkingLot1 = new ParkingLot(0);
         ParkingLot parkingLot2 = new ParkingLot(0);
         Attendant attendant = new Attendant(parkingLot1);

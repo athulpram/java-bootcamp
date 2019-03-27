@@ -4,5 +4,6 @@ enum Ball{
     RED,
     GREEN,
     YELLOW,
-    BLUE
+    BLUE,
+    BLACK
 }
