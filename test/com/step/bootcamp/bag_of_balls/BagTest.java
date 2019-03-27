@@ -78,8 +78,8 @@ class BagTest {
         deluxeBag.addValidation(new MaxThreeGreen());
         deluxeBag.addValidation(new RedNotMoreThanDoubleOfGreen());
         deluxeBag.addValidation(new YellowLessThanFourtyPercent());
-        for(int i=0;i<20;i++) {
-            bag.addBall(Ball.BLUE);
+        for(int i=0;i<10;i++) {
+            bag.addBall(Ball.BLACK);
         }
         assertFalse(bag.addBall(Ball.BLUE));
     }

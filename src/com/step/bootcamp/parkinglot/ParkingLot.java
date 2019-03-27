@@ -16,22 +16,34 @@ class ParkingLot {
         this.attendant = attendant;
     }
 
-    private boolean isNotAvailable(){
-        return lots.size()==MAX_LOT_SIZE;
-    }
 
     int park(Car car) throws ParkingLotFullException {
-        if(isNotAvailable()) {
+        if(!isAvailable()) {
             throw new ParkingLotFullException();
         }
         this.lots.add(car);
-        if(isNotAvailable()){
+        if(!isAvailable() && this.attendant != null){
             attendant.updateParkingLotAvailability(this,false);
         }
         return lots.indexOf(car);
     }
 
     boolean isAvailable() {
-        return !isNotAvailable();
+        return !(lots.size()==MAX_LOT_SIZE);
+    }
+
+
+    Car unpark(int carKey) throws CarNotFoundException {
+        boolean isFull = !this.isAvailable();
+        for (Car car : this.lots) {
+            if (car.isSameKey(carKey)){
+                lots.remove(car);
+                if(isFull && this.isAvailable() && this.attendant != null ){
+                    attendant.updateParkingLotAvailability(this,true);
+                }
+                return car;
+            }
+        }
+        throw new CarNotFoundException();
     }
 }

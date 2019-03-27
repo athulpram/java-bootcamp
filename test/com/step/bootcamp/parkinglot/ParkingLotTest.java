@@ -28,10 +28,29 @@ class ParkingLotTest {
         parkingLot.park(car);
         assertFalse(dummyAttendant.isNotified);
     }
+
+    @Test
+    void shouldUnParkTheCarWhenKeyIsPassed() throws ParkingLotFullException, CarNotFoundException {
+        Car car = new Car(10);
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(car);
+        assertEquals(car,parkingLot.unpark(10));
+    }
+
+    @Test
+    void shouldNotifyAttenderWhenParkingLotGotSpaceAfterBecomingFull() throws ParkingLotFullException, CarNotFoundException {
+        Car car = new Car(10);
+        ParkingLot parkingLot = new ParkingLot(1);
+        DummyAttendant dummyAttendant = new DummyAttendant(parkingLot);
+        parkingLot.registerAttendant(dummyAttendant);
+        parkingLot.park(car);
+        parkingLot.unpark(10);
+        assertTrue(dummyAttendant.isNotified);
+    }
 }
 
 class DummyAttendant extends Attendant{
-    boolean isNotified = true;
+    boolean isNotified;
     DummyAttendant(ParkingLot parkingLot) {
         super(parkingLot);
     }
