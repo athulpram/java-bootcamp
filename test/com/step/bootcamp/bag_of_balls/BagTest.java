@@ -18,24 +18,8 @@ class BagTest {
     }
 
     @Test
-    void shouldReturnTrueForASuccessfullAdditionOfBall() {
-        assertTrue(bag.addBall(Ball.BLUE));
-    }
-
-
-    @Test
     void shouldReturnFalseForThirteenthBall() {
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
-        bag.addBall(Ball.BLUE);
+        for (int i=0;i<12;i++)
         bag.addBall(Ball.BLUE);
         assertFalse(bag.addBall(Ball.BLUE));
 
@@ -93,7 +77,6 @@ class BagTest {
         deluxeBag.addValidation(new YellowLessThanFourtyPercent());
         deluxeBag.addValidation(new BlackNotMoreThanOne());
         bag.addBall(Ball.BLACK);
-        bag.addBall(Ball.BLACK);
-        assertTrue(bag.addBall(Ball.BLACK));
+        assertFalse(bag.addBall(Ball.BLACK));
     }
 }

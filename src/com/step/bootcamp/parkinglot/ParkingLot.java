@@ -3,11 +3,13 @@ package com.step.bootcamp.parkinglot;
 import java.util.ArrayList;
 
 class ParkingLot {
+    private String name;
     private final ArrayList<Car> lots;
     private final int MAX_LOT_SIZE;
     private Attendant attendant = null;
 
-    ParkingLot(int size) {
+    ParkingLot(String name, int size) {
+        this.name = name;
         this.lots = new ArrayList<>(size);
         this.MAX_LOT_SIZE = size;
     }
@@ -16,6 +18,13 @@ class ParkingLot {
         this.attendant = attendant;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Integer getNumberOfCars(){
+        return lots.size();
+    }
 
     int park(Car car) throws ParkingLotFullException {
         if(!isAvailable()) {
@@ -23,7 +32,7 @@ class ParkingLot {
         }
         this.lots.add(car);
         if(!isAvailable() && this.attendant != null){
-            attendant.updateParkingLotAvailability(this,false);
+            attendant.notifyParkingLotFull(this);
         }
         return lots.indexOf(car);
     }
@@ -39,7 +48,7 @@ class ParkingLot {
             if (car.isSameKey(carKey)){
                 lots.remove(car);
                 if(isFull && this.isAvailable() && this.attendant != null ){
-                    attendant.updateParkingLotAvailability(this,true);
+                    attendant.notifyParkingLotHasSpace(this);
                 }
                 return car;
             }

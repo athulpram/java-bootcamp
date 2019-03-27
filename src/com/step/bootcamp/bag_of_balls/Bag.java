@@ -1,9 +1,7 @@
 package com.step.bootcamp.bag_of_balls;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 class Bag {
     private Balls ballCount;

@@ -1,35 +1,35 @@
 package com.step.bootcamp.parkinglot;
 
 import java.util.HashMap;
-import java.util.Map;
 
 class Attendant {
-    private Map<ParkingLot,Boolean> parkingLots;
+    private HashMap<ParkingLot,Boolean> parkingLots;
+    private Display plDisplay;
 
-    Attendant(ParkingLot parkingLot) {
+    Attendant(ParkingLot parkingLot, Display plDisplay) {
         this.parkingLots = new HashMap<>();
-        this.parkingLots.put(parkingLot,parkingLot.isAvailable());
+        this.plDisplay = plDisplay;
+        this.addParkingLot(parkingLot);
     }
 
     void addParkingLot(ParkingLot parkingLot){
         this.parkingLots.put(parkingLot,parkingLot.isAvailable());
+        parkingLot.registerAttendant(this);
+        plDisplay.updateDisplay(parkingLot.getName(),parkingLot.getNumberOfCars());
+    }
+//
+//    void updateParkingLotAvailability(ParkingLot parkingLot,boolean status,Integer size){
+//        parkingLots.replace(parkingLot,status);
+//    }
+
+    void notifyParkingLotFull(ParkingLot parkingLot){
+        parkingLots.replace(parkingLot,true);
     }
 
-    private ParkingLot getAvailableParkingLot() throws ParkingLotFullException {
-        for(Map.Entry<ParkingLot, Boolean> parkingLotData: parkingLots.entrySet()){
-            if(parkingLotData.getValue()){
-                return parkingLotData.getKey();
-            }
-        }
-        throw new ParkingLotFullException();
+
+    void notifyParkingLotHasSpace(ParkingLot parkingLot){
+        parkingLots.replace(parkingLot,false);
     }
 
-    void updateParkingLotAvailability(ParkingLot parkingLot,boolean status){
-        parkingLots.replace(parkingLot,status);
-    }
 
-    int park(Car car) throws ParkingLotFullException {
-        ParkingLot parkingLot = getAvailableParkingLot();
-        return parkingLot.park(car);
-    }
 }

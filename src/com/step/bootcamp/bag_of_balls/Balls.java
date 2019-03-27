@@ -1,9 +1,14 @@
 package com.step.bootcamp.bag_of_balls;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Balls implements CountableBalls {
     private Map<Ball, Integer> ballsCount;
+
+    Balls() {
+        ballsCount = new HashMap<>();
+    }
 
     @Override
     public Integer getCountOf(Ball ball) {
